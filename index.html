@@ -42,6 +42,21 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes iconBloom {
+      0% { transform: scale(.82) rotate(-8deg); opacity: 0; }
+      100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+
+    @keyframes shimmerLine {
+      from { transform: scaleX(0); opacity: 0; }
+      to { transform: scaleX(1); opacity: 1; }
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; scroll-padding-top: 110px; }
     body {
@@ -69,7 +84,7 @@
     }
 
     .navbar {
-      height: 96px;
+      height: 76px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -159,19 +174,49 @@
 
     .hero {
       min-height: calc(100vh - 96px);
+      height: 100vh;
       display: grid;
       place-items: center;
       position: relative;
       color: white;
+      overflow: hidden;
       background:
         linear-gradient(90deg, rgba(20,32,27,0.80), rgba(20,32,27,0.42), rgba(20,32,27,0.78)),
         url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=2400&q=85') center/cover;
+      background-position: center var(--hero-y, 0px);
+      transition: background-position .08s linear;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      filter: blur(2px);
+      pointer-events: none;
+      animation: gentleFloat 7s ease-in-out infinite;
+    }
+
+    .hero::before {
+      width: 180px;
+      height: 180px;
+      left: 8%;
+      top: 18%;
+    }
+
+    .hero::after {
+      width: 110px;
+      height: 110px;
+      right: 12%;
+      bottom: 20%;
+      animation-delay: 1.5s;
     }
 
     .hero-content {
       width: min(720px, 100%);
       margin-left: 28%;
-      padding: 80px 0;
+      margin-bottom: 100px;
     }
 
     .hero-content > * {
@@ -248,8 +293,21 @@
     .stagger.visible > *:nth-child(4) { transition-delay: .38s; }
     .stagger.visible > *:nth-child(5) { transition-delay: .48s; }
     .stagger.visible > *:nth-child(6) { transition-delay: .58s; }
-    .section-head { text-align: center; max-width: 760px; margin: 0 auto 70px; }
+    .section-head { text-align: center; max-width: 760px; margin: 0 auto 70px; position: relative; }
     .section-head .eyebrow { margin-bottom: 24px; }
+    .section-head::after {
+      content: '';
+      display: block;
+      width: 76px;
+      height: 3px;
+      background: var(--green);
+      border-radius: 999px;
+      margin: 26px auto 0;
+      transform-origin: center;
+      transform: scaleX(0);
+      opacity: 0;
+    }
+    .section-head.visible::after { animation: shimmerLine .65s ease forwards; }
 
     .about-grid {
       display: grid;
@@ -277,7 +335,13 @@
       z-index: -1;
     }
 
-    .about-image img { width: 100%; height: 540px; object-fit: cover; }
+    .about-image img {
+      width: 100%;
+      height: 540px;
+      object-fit: cover;
+      transform: scale(1.05) translateY(var(--about-img-y, 0px));
+      transition: transform .12s linear;
+    }
 
     .about-text p {
       color: var(--muted);
@@ -326,7 +390,16 @@
     }
 
     .card:hover { transform: translateY(-8px) scale(1.015); box-shadow: var(--shadow); border-color: rgba(34,111,77,0.22); }
-    .card i { color: var(--green); width: 42px; height: 42px; margin-bottom: 34px; stroke-width: 2.2; }
+    .card i {
+      color: var(--green);
+      width: 42px;
+      height: 42px;
+      margin-bottom: 34px;
+      stroke-width: 2.2;
+      transition: transform .35s ease, color .35s ease;
+    }
+    .stagger.visible .card i { animation: iconBloom .65s ease both; }
+    .card:hover i { transform: translateY(-5px) rotate(-5deg) scale(1.08); color: var(--green-dark); }
     .card p { color: var(--muted); font-size: 18px; line-height: 1.55; margin-top: 18px; }
 
     .work-grid {
@@ -370,10 +443,33 @@
     }
 
     .quote-section {
-      background: var(--green);
-      color: white;
-      text-align: center;
-      padding: 90px 0;
+      background: #226f4d;
+    li.quote-section blockquote {
+    font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.2;
+      max-width: 900px;
+      margin: 0 auto;
+      font-style: italic;
+      letter-spacing: -0.5px;
+      opacity: 0.95;
+      position: relative;
+      z-index: 2;
+      transform: translateY(var(--quote-text-y, 0px));
+      transition: transform .12s linear;
+    }}
+
+    .quote-section::before {
+      content: '“';
+      position: absolute;
+      left: 8%;
+      top: -44px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 220px;
+      line-height: 1;
+      color: rgba(255,255,255,.09);
+      transform: translateY(var(--quote-mark-y, 0px));
+      transition: transform .12s linear;
     }
 
     .quote-section blockquote {
@@ -526,6 +622,7 @@
         scroll-behavior: auto !important;
         transition-duration: .001ms !important;
       }
+      .hero, .quote-section, .about-image img, .quote-section blockquote { background-position: center !important; transform: none !important; }
     }
 
     @media (max-width: 640px) {
@@ -556,10 +653,10 @@
       <a class="logo" href="#home"><i data-lucide="leaf"></i><span>Blooms N Breezes</span></a>
       <nav class="nav-links" id="navLinks">
         <a href="#home" class="active">Home</a>
-        <a href="#services">Services</a>
         <a href="#about">About</a>
+        <a href="#services">Services</a>
         <a href="#work">Past Work</a>
-        <a href="#testimonials">Testimonials</a>
+        <!-- <a href="#testimonials">Testimonials</a> -->
         <a href="#contact">Contact</a>
         <a href="#contact" class="btn btn-primary mobile-contact">Get in Touch</a>
       </nav>
@@ -603,7 +700,7 @@
       </div>
     </section>
 
-    <section class="quote-section">
+    <section class="quote-section reveal">
       <div class="container">
         <blockquote>
           "We don’t just grow plants — we cultivate living stories that breathe life into every space."
@@ -613,7 +710,7 @@
 
     <section id="services">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="eyebrow">What We Offer</div>
           <h2>Our Services</h2>
         </div>
@@ -630,7 +727,7 @@
 
     <section id="work">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="eyebrow">Selected Projects</div>
           <h2>Past Work</h2>
         </div>
@@ -655,12 +752,12 @@
 
     <section id="testimonials">
       <div class="container">
-        <div class="section-head">
+        <div class="section-head reveal">
           <div class="eyebrow">Testimonials</div>
           <h2>What Our Clients Say</h2>
         </div>
         <div class="cards-grid stagger reveal">
-          <article class="card testimonial-card"><i class="quote-icon" data-lucide="quote"></i><p>"Blooms N Breezes completely transformed our backyard into a peaceful retreat. Their attention to detail and plant knowledge is exceptional."</p><div class="stars">★★★★★</div><div class="person"><strong>Priya Sharma</strong><span>Homeowner, Bangalore</span></div></article>
+          <article class="card testimonial-card"><i class="quote-icon" data-lucide="quote"></i><p>"Blooms N Breezes completely transformed our backyard into a peaceful retreat. Their attention to detail and plant knowledge is exceptional."</p><div class="stars">★★★★★</div><div class="person"><strong>Priya Sharma</strong><span>Homeowner, Surat</span></div></article>
           <article class="card testimonial-card"><i class="quote-icon" data-lucide="quote"></i><p>"Their AMC service keeps our office garden looking pristine all year. The team is professional, punctual, and truly cares about the plants."</p><div class="stars">★★★★★</div><div class="person"><strong>Arjun Mehta</strong><span>Office Manager, Hyderabad</span></div></article>
           <article class="card testimonial-card"><i class="quote-icon" data-lucide="quote"></i><p>"The plant parenting sessions were a game-changer for me. My indoor jungle has never looked better. Highly recommend their expertise!"</p><div class="stars">★★★★★</div><div class="person"><strong>Sneha Reddy</strong><span>Plant Enthusiast, Chennai</span></div></article>
         </div>
@@ -681,8 +778,8 @@
           <div class="eyebrow">Get in Touch</div>
           <h2>Let’s Grow Something Beautiful</h2>
           <div class="contact-item"><i data-lucide="mail"></i><span>hello@bloomsnbreezes.com</span></div>
-          <div class="contact-item"><i data-lucide="phone"></i><span>+91 98765 43210</span></div>
-          <div class="contact-item"><i data-lucide="map-pin"></i><span>Bangalore, India</span></div>
+          <div class="contact-item"><i data-lucide="phone"></i><span>+91 81282 98074</span></div>
+          <div class="contact-item"><i data-lucide="map-pin"></i><span>Surat, India</span></div>
         </div>
         <form class="contact-form" id="contactForm">
           <div class="form-row">
@@ -714,7 +811,7 @@
         </div>
         <div>
           <h4>Get in Touch</h4>
-          <ul><li>hello@bloomsnbreezes.com</li><li>+91 98765 43210</li><li>Bangalore, India</li></ul>
+          <ul><li>hello@bloomsnbreezes.com</li><li>+91 81282 98074</li><li>Surat, India</li></ul>
         </div>
       </div>
       <p class="copyright">© 2026 Blooms N Breezes. All rights reserved.</p>
@@ -735,6 +832,37 @@
     }, { threshold: 0.16, rootMargin: '0px 0px -70px 0px' });
 
     revealItems.forEach(item => revealObserver.observe(item));
+
+    const hero = document.querySelector('.hero');
+    const aboutImage = document.querySelector('.about-image img');
+    const quoteSection = document.querySelector('.quote-section');
+    const quoteText = document.querySelector('.quote-section blockquote');
+
+    function updateParallax() {
+      const scrolled = window.scrollY;
+
+      if (hero) {
+        hero.style.setProperty('--hero-y', `${scrolled * 0.18}px`);
+      }
+
+      if (aboutImage) {
+        const rect = aboutImage.getBoundingClientRect();
+        const offset = (rect.top - window.innerHeight / 2) * -0.035;
+        aboutImage.style.setProperty('--about-img-y', `${offset}px`);
+      }
+
+      if (quoteSection) {
+        const rect = quoteSection.getBoundingClientRect();
+        const offset = (rect.top - window.innerHeight / 2) * -0.045;
+        quoteSection.style.setProperty('--quote-y', `${offset}px`);
+        quoteSection.style.setProperty('--quote-mark-y', `${offset * 0.8}px`);
+        if (quoteText) quoteText.style.setProperty('--quote-text-y', `${offset * 0.25}px`);
+      }
+    }
+
+    window.addEventListener('scroll', updateParallax, { passive: true });
+    window.addEventListener('resize', updateParallax);
+    updateParallax();
 
     const header = document.getElementById('header');
     const menuBtn = document.querySelector('.menu-btn');
