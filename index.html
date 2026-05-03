@@ -445,6 +445,8 @@
     }
     .work-info p { color: rgba(255,255,255,0.78); margin-top: 8px; line-height: 1.5; }
 
+              to { transform: translateX(-50%); }
+
     .testimonial-card {
       min-height: 385px;
     }
@@ -645,6 +647,9 @@
     }
 
     @media (max-width: 640px) {
+      .client-logo { min-width: 190px; width: 190px; height: 122px; flex-basis: 190px; font-size: 21px; padding: 16px; }
+      .client-showcase { padding: 24px 0; border-radius: 26px; }
+      .client-carousel::before, .client-carousel::after { width: 54px; }
       .container { width: min(100% - 32px, 1220px); }
       .navbar { height: 74px; }
       .logo { font-size: 23px; max-width: 245px; }
@@ -702,7 +707,7 @@
     <section id="about" class="reveal">
       <div class="container about-grid">
         <div class="about-image">
-          <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1400&q=85" alt="Elegant landscaped garden with flowers and pathways">
+          <img src="Images/BNB_Logo.png" alt="Elegant landscaped garden with flowers and pathways">
         </div>
         <div class="about-text">
           <div class="eyebrow">About Us</div>
@@ -754,7 +759,7 @@
           <article class="work-card tall">
             <img src="Images/Rajhans_Evana.png" alt="Large landscaped lawn">
             <div class="work-info">
-              <h3>Rajhans Evana</h3>
+              <h3>Luxury Villa Garden</h3>
               <p>A complete garden transformation with curated plants, pathways, and seasonal blooms.</p>
               <a href="Rajhans_evana.html" class="work-btn">View More</a>
             </div>
@@ -763,7 +768,7 @@
             <article class="work-card">
               <img src="Images/Meraki_cafe.png" alt="Indoor plants in pots">
               <div class="work-info">
-                <h3>Meraki Cafe</h3>
+                <h3>Indoor Plant Styling</h3>
                 <p>Minimal indoor greens designed for calm, fresh interiors.</p>
                 <a href="Meraki_Cafe.html" class="work-btn">View More</a>
               </div>
@@ -771,7 +776,7 @@
             <article class="work-card">
               <img src="Images/Rajhans_cornello.png" alt="Garden maintenance work">
               <div class="work-info">
-                <h3>Rajhans Cornello</h3>
+                <h3>Corporate AMC</h3>
                 <p>Ongoing maintenance for office landscapes and entrance gardens.</p>
                 <a href="Rajhans_cornello.html" class="work-btn">View More</a>
               </div>
@@ -781,6 +786,7 @@
       </div>
     </section>
 
+    
     <section id="testimonials">
       <div class="container">
         <div class="section-head reveal">
@@ -810,7 +816,7 @@
           <h2>Let’s Grow Something Beautiful</h2>
           <div class="contact-item"><i data-lucide="mail"></i><span>hello@bloomsnbreezes.com</span></div>
           <div class="contact-item"><i data-lucide="phone"></i><span>+91 98765 43210</span></div>
-          <div class="contact-item"><i data-lucide="map-pin"></i><span>Surat, India</span></div>
+          <div class="contact-item"><i data-lucide="map-pin"></i><span>Bangalore, India</span></div>
         </div>
         <form class="contact-form" id="contactForm">
           <div class="form-row">
@@ -842,7 +848,7 @@
         </div>
         <div>
           <h4>Get in Touch</h4>
-          <ul><li>hello@bloomsnbreezes.com</li><li>+91 98765 43210</li><li>Surat, India</li></ul>
+          <ul><li>hello@bloomsnbreezes.com</li><li>+91 98765 43210</li><li>Bangalore, India</li></ul>
         </div>
       </div>
       <p class="copyright">© 2026 Blooms N Breezes. All rights reserved.</p>
