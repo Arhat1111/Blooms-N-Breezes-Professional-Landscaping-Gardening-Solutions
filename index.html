@@ -394,6 +394,73 @@
       gap: 10px;
     }
 
+    .founders-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 60px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .founder-card {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 40px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 40px;
+    }
+
+    .founder-card:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .founder-image {
+      width: 100%;
+      aspect-ratio: 1 / 1.1;
+      border-radius: 22px;
+      overflow: hidden;
+      background: rgba(59,85,78,.08);
+    }
+
+    .founder-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .8s ease;
+    }
+
+    .founder-card:hover .founder-image img { transform: scale(1.05); }
+
+    .founder-role {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      margin-bottom: 10px;
+    }
+
+    .founder-card h3 {
+      font-size: 36px;
+      margin-bottom: 14px;
+    }
+
+    .founder-card p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 16px;
+      max-width: 520px;
+      margin-bottom: 12px;
+    }
+
+    .founder-extra {
+      font-size: 14px;
+      color: var(--muted);
+      opacity: 0.85;
+    }
+
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -528,6 +595,111 @@
     }
 
     .work-dot.active {
+      width: 28px;
+      background: var(--green);
+    }
+
+    .upcoming-section {
+      padding-top: 20px;
+    }
+
+    .upcoming-slider {
+      max-width: 980px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .upcoming-track {
+      display: flex;
+      transition: transform .55s cubic-bezier(.22,.61,.36,1);
+      will-change: transform;
+    }
+
+    .upcoming-card {
+      min-width: 100%;
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 44px;
+      align-items: center;
+      background: rgba(255,255,255,.62);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      padding: 28px;
+      box-shadow: 0 18px 52px rgba(30,55,45,.06);
+    }
+
+    .upcoming-image {
+      height: 330px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: rgba(59,85,78,.08);
+    }
+
+    .upcoming-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .upcoming-content .tag {
+      display: inline-flex;
+      margin-bottom: 18px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(59,85,78,.09);
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .upcoming-content h3 {
+      font-size: 42px;
+      margin-bottom: 18px;
+    }
+
+    .upcoming-content p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.65;
+      max-width: 520px;
+    }
+
+    .upcoming-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .upcoming-meta span {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(59,85,78,.13);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .upcoming-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .upcoming-dot {
+      width: 9px;
+      height: 9px;
+      border: 0;
+      border-radius: 99px;
+      background: rgba(59,85,78,.28);
+      cursor: pointer;
+      transition: width .25s ease, background .25s ease;
+    }
+
+    .upcoming-dot.active {
       width: 28px;
       background: var(--green);
 
@@ -718,6 +890,7 @@
       .hero-content { margin-left: 0; text-align: center; }
       .hero-actions { justify-content: center; }
       .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .founders-grid { grid-template-columns: 1fr; }
       .work-slide { min-width: calc((100% - 28px) / 2); flex-basis: calc((100% - 28px) / 2); }
       .cards-grid { grid-template-columns: repeat(2, 1fr); }
       .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -750,7 +923,24 @@
       h2 { font-size: 46px; }
       .hero p, .about-text p, .card p, .cta p { font-size: 17px; }
       .cards-grid, .footer-grid, .form-row { grid-template-columns: 1fr; }
+      @media (max-width: 768px) {
+      .founder-card {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        text-align: center;
+      }
+
+      .founder-card p,
+      .founder-extra {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+      .founder-card h3 { font-size: 32px; }
       .work-slide { min-width: 100%; flex-basis: 100%; }
+      .upcoming-card { grid-template-columns: 1fr; gap: 24px; padding: 22px; }
+      .upcoming-image { height: 260px; }
+      .upcoming-content h3 { font-size: 34px; }
       .work-card { min-height: 390px; }
       .work-info { left: 22px; right: 22px; bottom: 22px; }
       .work-controls { margin-top: 24px; }
@@ -768,10 +958,10 @@
       <a class="logo" href="#home"><i data-lucide="leaf"></i><span>Blooms N Breezes</span></a>
       <nav class="nav-links" id="navLinks">
         <a href="#home" class="active">Home</a>
-        <a href="#services">Services</a>
         <a href="#about">About</a>
+        <a href="#services">Services</a>
         <a href="#work">Past Work</a>
-        <a href="#testimonials">Testimonials</a>
+        <!-- <a href="#testimonials">Testimonials</a> -->
         <a href="#contact">Contact</a>
         <a href="#contact" class="btn btn-primary mobile-contact">Get in Touch</a>
       </nav>
@@ -798,7 +988,7 @@
     <section id="about" class="reveal">
       <div class="container about-grid">
         <div class="about-image">
-          <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1400&q=85" alt="Elegant landscaped garden with flowers and pathways">
+          <img src="Images/BNB_Logo.png" alt="Elegant landscaped garden with flowers and pathways">
         </div>
         <div class="about-text">
           <div class="eyebrow">About Us</div>
@@ -811,6 +1001,49 @@
             <div class="stat"><strong>98%</strong><span>Happy Clients</span></div>
           </div>
           <a href="#contact" class="inline-link">Learn More About Us <i data-lucide="arrow-right"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <section id="founders">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Meet The Founders</div>
+          <h2>The People Behind<br><em>Blooms N Breezes</em></h2>
+        </div>
+
+        <div class="founders-grid stagger reveal">
+          <article class="founder-card">
+            <div class="founder-image">
+              <img src="Images/Kanishka_Tulsian_founder.png" alt="Founder portrait">
+            </div>
+            <div>
+              <div class="founder-role">Co-Founder · Design</div>
+              <h3>Kanishka Tulsian</h3>
+              <p class="founder-extra">I’m instinctively drawn to spaces, their energy, flow, and the way they make people feel. 
+                My journey into this field wasn’t linear, but I’ve always had a natural eye for aesthetics and detail. 
+                With Blooms n Breezes, I found myself shaping the creative direction, focusing on how spaces are experienced, 
+                not just designed. For me, it’s about creating environments that feel calm, refined, and effortless. 
+                I believe luxury lies in subtlety. In thoughtful choices, clean design, and spaces that quietly elevate everyday living.</p>
+            </div>
+          </article>
+
+          <article class="founder-card">
+            <div class="founder-image">
+              <img src="Images/Vedant_Simaria_Founder.png" alt="Founder portrait">
+            </div>
+            <div>
+              <div class="founder-role">Co-Founder · Operations</div>
+              <h3>Vedant Simaria</h3>
+              <p class="founder-extra">I see myself as an inquisitive Pachira tree: resilient, adaptable, and always growing. 
+                Born in Rajkot, I moved to Surat to join my father’s finance firm, but something always felt missing. 
+                I explored different paths until 2024, when an opportunity in landscaping led me to build from the ground up, 
+                literally. Early challenges pushed me on site, learning, building teams, and creating spaces firsthand. 
+                Somewhere in the process, I found what I was looking for. Today, I’ve moved from finance to flora, 
+                understanding over 200 plant species and co-building Blooms n Breezes. For me, growth, whether of plants or people, 
+                comes from care, consistency, and curiosity.</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -851,33 +1084,33 @@
             <div class="work-track" id="workTrack">
               <article class="work-slide">
                 <div class="work-card">
-                  <img src="https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=1200&q=85" alt="Luxury villa garden landscaping">
+                  <img src="Images/Rajhans_Evana-square (1).png" alt="Luxury villa garden landscaping">
                   <div class="work-info">
-                    <h3>Luxury Villa Garden</h3>
+                    <h3>Rajhans Evana</h3>
                     <p>Curated pathways, seasonal blooms, and a calm green layout for a private villa.</p>
-                    <a href="project-villa.html" class="work-btn">View More</a>
+                    <a href="Rajhans_evana.html" class="work-btn">View More</a>
                   </div>
                 </div>
               </article>
 
               <article class="work-slide">
                 <div class="work-card">
-                  <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1200&q=85" alt="Indoor plants styling">
+                  <img src="Images/Meraki_cafe.png" alt="Indoor plants styling">
                   <div class="work-info">
-                    <h3>Indoor Plant Styling</h3>
+                    <h3>Meraki Cafe</h3>
                     <p>Minimal indoor greens designed for calm, fresh interiors and workspaces.</p>
-                    <a href="project-indoor.html" class="work-btn">View More</a>
+                    <a href="Meraki_Cafe.html" class="work-btn">View More</a>
                   </div>
                 </div>
               </article>
 
               <article class="work-slide">
                 <div class="work-card">
-                  <img src="https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=1200&q=85" alt="Corporate garden maintenance">
+                  <img src="Images/Rajhans_cornello.png" alt="Corporate garden maintenance">
                   <div class="work-info">
-                    <h3>Corporate AMC</h3>
+                    <h3>Rajhans Cornello</h3>
                     <p>Ongoing maintenance for office landscapes, entry gardens, and green corners.</p>
-                    <a href="project-amc.html" class="work-btn">View More</a>
+                    <a href="Rajhans_cornello.html" class="work-btn">View More</a>
                   </div>
                 </div>
               </article>
@@ -886,9 +1119,9 @@
                 <div class="work-card">
                   <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=1200&q=85" alt="Balcony garden design">
                   <div class="work-info">
-                    <h3>Balcony Garden</h3>
+                    <h3>Rajhans Montessa</h3>
                     <p>A compact urban balcony converted into a refreshing layered green escape.</p>
-                    <a href="project-balcony.html" class="work-btn">View More</a>
+                    <a href="Rajhans_montessa.html" class="work-btn">View More</a>
                   </div>
                 </div>
               </article>
@@ -897,9 +1130,9 @@
                 <div class="work-card">
                   <img src="https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=1200&q=85" alt="Plant gifting arrangements">
                   <div class="work-info">
-                    <h3>Plant Gifting Setup</h3>
+                    <h3>Skyblue Stationary</h3>
                     <p>Custom plant gifting arrangements created for events, homes, and celebrations.</p>
-                    <a href="project-gifting.html" class="work-btn">View More</a>
+                    <a href="Skyblue_stationary.html" class="work-btn">View More</a>
                   </div>
                 </div>
               </article>
@@ -908,9 +1141,9 @@
                 <div class="work-card">
                   <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1200&q=85" alt="Terrarium and crafty plants">
                   <div class="work-info">
-                    <h3>Crafty Plant Corner</h3>
+                    <h3>Hilton Garden Inn</h3>
                     <p>Terrariums and artistic plant pieces styled for a boutique display corner.</p>
-                    <a href="project-crafty.html" class="work-btn">View More</a>
+                    <a href="Hilton_garden_Inn.html" class="work-btn">View More</a>
                   </div>
                 </div>
               </article>
@@ -919,9 +1152,9 @@
                 <div class="work-card">
                   <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1200&q=85" alt="Flower bed landscaping">
                   <div class="work-info">
-                    <h3>Seasonal Flower Bed</h3>
+                    <h3>Office Spaces</h3>
                     <p>Soft color planning and fresh planting for a bright seasonal garden refresh.</p>
-                    <a href="project-flowerbed.html" class="work-btn">View More</a>
+                    <a href="Office_spaces.html" class="work-btn">View More</a>
                   </div>
                 </div>
               </article>
@@ -930,9 +1163,9 @@
                 <div class="work-card">
                   <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=85" alt="Large garden landscape pathway">
                   <div class="work-info">
-                    <h3>Pathway Landscape</h3>
+                    <h3>Private Residences</h3>
                     <p>A clean landscape pathway with structured greens and natural visual flow.</p>
-                    <a href="project-pathway.html" class="work-btn">View More</a>
+                    <a href="private_residences.html" class="work-btn">View More</a>
                   </div>
                 </div>
               </article>
@@ -956,6 +1189,57 @@
             <button class="work-arrow" id="workNext" aria-label="Next project"><i data-lucide="arrow-right"></i></button>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="upcoming-section reveal" id="upcoming">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Coming Soon</div>
+          <h2>Upcoming Projects</h2>
+        </div>
+
+        <div class="upcoming-slider">
+          <div class="upcoming-track" id="upcomingTrack">
+            <article class="upcoming-card">
+              <div class="upcoming-image">
+                <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=1000&q=85" alt="Upcoming rooftop garden project">
+              </div>
+              <div class="upcoming-content">
+                <span class="tag">Rooftop Garden</span>
+                <h3>Skyline Green Retreat</h3>
+                <p>A calm rooftop landscape planned with layered planters, soft seating corners, and low-maintenance greenery for an urban terrace.</p>
+                <div class="upcoming-meta"><span>Terrace Styling</span><span>Planting Plan</span><span>In Progress</span></div>
+              </div>
+            </article>
+
+            <article class="upcoming-card">
+              <div class="upcoming-image">
+                <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1000&q=85" alt="Upcoming flower garden project">
+              </div>
+              <div class="upcoming-content">
+                <span class="tag">Seasonal Garden</span>
+                <h3>Bloom Courtyard</h3>
+                <p>A courtyard refresh designed around seasonal flowers, clean pathways, and soft natural textures to create a welcoming outdoor space.</p>
+                <div class="upcoming-meta"><span>Flower Beds</span><span>Pathways</span><span>Launching Soon</span></div>
+              </div>
+            </article>
+
+            <article class="upcoming-card">
+              <div class="upcoming-image">
+                <img src="https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=1000&q=85" alt="Upcoming indoor plant project">
+              </div>
+              <div class="upcoming-content">
+                <span class="tag">Indoor Greens</span>
+                <h3>Office Plant Lounge</h3>
+                <p>A minimal indoor plant lounge for a workspace, combining clean planters, plant parenting support, and monthly care visits.</p>
+                <div class="upcoming-meta"><span>Corporate</span><span>AMC Ready</span><span>Concept Stage</span></div>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="upcoming-controls" id="upcomingDots"></div>
       </div>
     </section>
 
@@ -986,9 +1270,9 @@
         <div class="contact-panel">
           <div class="eyebrow">Get in Touch</div>
           <h2>Let’s Grow Something Beautiful</h2>
-          <div class="contact-item"><i data-lucide="mail"></i><span>bloomsnbreezes@gmail.com</span></div>
-          <div class="contact-item"><i data-lucide="phone"></i><span>+91 8128298074</span></div>
-          <div class="contact-item"><i data-lucide="map-pin"></i><span>Surat, India</span></div>
+          <div class="contact-item"><i data-lucide="mail"></i><span>hello@bloomsnbreezes.com</span></div>
+          <div class="contact-item"><i data-lucide="phone"></i><span>+91 98765 43210</span></div>
+          <div class="contact-item"><i data-lucide="map-pin"></i><span>Bangalore, India</span></div>
         </div>
         <form class="contact-form" id="contactForm">
           <div class="form-row">
@@ -1020,7 +1304,7 @@
         </div>
         <div>
           <h4>Get in Touch</h4>
-          <ul><li>bloomsnbreezes@gmail.com</li><li>+91 8128298074</li><li>Surat, India</li></ul>
+          <ul><li>hello@bloomsnbreezes.com</li><li>+91 98765 43210</li><li>Bangalore, India</li></ul>
         </div>
       </div>
       <p class="copyright">© 2026 Blooms N Breezes. All rights reserved.</p>
@@ -1171,6 +1455,43 @@
     window.addEventListener('resize', setupWorkSlider);
     setupWorkSlider();
 
+    const upcomingTrack = document.getElementById('upcomingTrack');
+    const upcomingDots = document.getElementById('upcomingDots');
+    let upcomingIndex = 0;
+
+    function setupUpcomingSlider() {
+      if (!upcomingTrack || !upcomingDots) return;
+      const total = upcomingTrack.children.length;
+      upcomingDots.innerHTML = '';
+
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'upcoming-dot';
+        dot.setAttribute('aria-label', `Go to upcoming project ${i + 1}`);
+        dot.addEventListener('click', () => {
+          upcomingIndex = i;
+          updateUpcomingSlider();
+        });
+        upcomingDots.appendChild(dot);
+      }
+
+      updateUpcomingSlider();
+    }
+
+    function updateUpcomingSlider() {
+      if (!upcomingTrack || !upcomingDots) return;
+      upcomingTrack.style.transform = `translateX(-${upcomingIndex * 100}%)`;
+      [...upcomingDots.children].forEach((dot, i) => dot.classList.toggle('active', i === upcomingIndex));
+    }
+
+    setInterval(() => {
+      if (!upcomingTrack) return;
+      upcomingIndex = (upcomingIndex + 1) % upcomingTrack.children.length;
+      updateUpcomingSlider();
+    }, 4500);
+
+    setupUpcomingSlider();
+
     const sections = document.querySelectorAll('main section[id]');
     window.addEventListener('scroll', () => {
       let current = 'home';
@@ -1192,7 +1513,7 @@
       const service = this.querySelectorAll('input[type="text"]')[1].value.trim();
       const message = this.querySelector('textarea').value.trim();
 
-      const whatsappNumber = '918128298074';
+      const whatsappNumber = '919876543210';
       const whatsappMessage = `Hello Blooms N Breezes,%0A%0AI would like to enquire about your services.%0A%0AName: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0AService Interested In: ${encodeURIComponent(service || 'Not specified')}%0AMessage: ${encodeURIComponent(message)}%0A%0AThank you.`;
 
       window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
