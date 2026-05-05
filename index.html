@@ -10,14 +10,15 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     :root {
-      --green: #226f4d;
-      --green-dark: #1e372d;
-      --green-deep: #1c2a24;
+      --green: #3b554e;
+      --green-dark: #2f4740;
+      --green-deep: #263932;
       --text: #222b27;
       --muted: #64726d;
       --cream: #fbfbf7;
       --line: #e7e8e0;
-      --gold: #d18a45;
+      --gold: #d8d3ad;
+      --logo-cream: #f5f0c8;
       --shadow: 0 24px 70px rgba(30, 55, 45, 0.10);
       --radius: 22px;
     }
@@ -78,7 +79,7 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(251, 251, 247, 0.94);
+      background: rgba(251, 251, 247, 0.96);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(0,0,0,0.06);
     }
@@ -149,9 +150,21 @@
 
     .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
     .btn-primary { animation: softPulse 3s ease-in-out infinite; }
-    .btn-primary { background: var(--green); color: white; }
-    .btn-light { background: white; color: var(--green); }
-    .btn-ghost { border: 1px solid rgba(255,255,255,0.25); color: white; background: rgba(255,255,255,0.05); }
+    .btn-primary { background: var(--green); color: var(--logo-cream); }
+    .btn-light { background: var(--logo-cream); color: var(--green); }
+    .btn-ghost {
+      border: 1.5px solid rgba(255,255,255,0.9);
+      color: white;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .btn-ghost:hover {
+      background: var(--logo-cream);
+      color: var(--green);
+      border-color: var(--logo-cream);
+    }
 
     .menu-btn {
       display: none;
@@ -173,17 +186,21 @@
     .mobile-contact { display: none; }
 
     .hero {
-      min-height: calc(100vh - 96px);
-      display: grid;
-      place-items: center;
+      height: calc(100vh - 96px);
+      min-height: 640px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       position: relative;
       color: white;
       overflow: hidden;
+      text-align: center;
       background:
-        linear-gradient(90deg, rgba(20,32,27,0.80), rgba(20,32,27,0.42), rgba(20,32,27,0.78)),
-        url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=2400&q=85') center/cover;
+        linear-gradient(90deg, rgba(20,32,27,0.50), rgba(20,32,27,0.22), rgba(20,32,27,0.45)),
+        url('https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=2400&q=85') center/cover;
       background-position: center var(--hero-y, 0px);
       transition: background-position .08s linear;
+      padding: 0;
     }
 
     .hero::before,
@@ -213,9 +230,13 @@
     }
 
     .hero-content {
-      width: min(720px, 100%);
-      margin-left: 28%;
-      padding: 80px 0;
+      width: min(780px, 100%);
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .hero-content > * {
@@ -329,7 +350,7 @@
       bottom: -34px;
       width: 170px;
       height: 170px;
-      background: #eef4ef;
+      background: rgba(59,85,78,0.08);
       border-radius: 24px;
       z-index: -1;
     }
@@ -401,28 +422,42 @@
     .card:hover i { transform: translateY(-5px) rotate(-5deg) scale(1.08); color: var(--green-dark); }
     .card p { color: var(--muted); font-size: 18px; line-height: 1.55; margin-top: 18px; }
 
-    .work-grid {
-      display: grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 28px;
+    .work-slider-wrap {
+      position: relative;
     }
 
-    .work-stack { display: grid; gap: 28px; }
+    .work-slider {
+      overflow: hidden;
+      border-radius: var(--radius);
+    }
+
+    .work-track {
+      display: flex;
+      gap: 28px;
+      transition: transform .55s cubic-bezier(.22,.61,.36,1);
+      will-change: transform;
+    }
+
+    .work-slide {
+      min-width: calc((100% - 56px) / 3);
+      flex: 0 0 calc((100% - 56px) / 3);
+    }
+
     .work-card {
-      min-height: 360px;
+      min-height: 430px;
       border-radius: var(--radius);
       overflow: hidden;
       position: relative;
       color: white;
       box-shadow: var(--shadow);
+      isolation: isolate;
     }
 
-    .work-card.tall { min-height: 748px; }
     .work-card img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
-    .work-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(18,31,26,0.78), transparent 62%); }
+    .work-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(18,31,26,0.82), rgba(18,31,26,0.12) 64%, transparent); }
     .work-card img { transition: transform 1.2s ease; }
     .work-card:hover img { transform: scale(1.08); }
-    .work-info { position: absolute; left: 34px; right: 34px; bottom: 34px; z-index: 2; }
+    .work-info { position: absolute; left: 28px; right: 28px; bottom: 28px; z-index: 2; }
 
     .work-btn {
       display: inline-block;
@@ -439,13 +474,65 @@
     }
 
     .work-btn:hover {
-      background: white;
+      background: var(--logo-cream);
       color: var(--green);
-      border-color: white;
+      border-color: var(--logo-cream);
     }
+
     .work-info p { color: rgba(255,255,255,0.78); margin-top: 8px; line-height: 1.5; }
 
+    .work-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .work-arrow {
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(59,85,78,.16);
+      background: rgba(255,255,255,.72);
+      color: var(--green);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform .25s ease, background .25s ease, box-shadow .25s ease;
+    }
+
+    .work-arrow:hover {
+      transform: translateY(-2px);
+      background: var(--logo-cream);
+      box-shadow: 0 12px 32px rgba(30,55,45,.10);
+    }
+
+    .work-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 0 8px;
+    }
+
+    .work-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      border: 0;
+      background: rgba(59,85,78,.28);
+      cursor: pointer;
+      transition: width .25s ease, background .25s ease;
+    }
+
+    .work-dot.active {
+      width: 28px;
+      background: var(--green);
+
               to { transform: translateX(-50%); }
+    }
 
     .testimonial-card {
       min-height: 385px;
@@ -458,16 +545,16 @@
 
     .cta {
       background: var(--green);
-      color: white;
+      color: var(--logo-cream);
       text-align: center;
       padding: 110px 0;
     }
 
     .quote-section {
       background:
-        radial-gradient(circle at 20% 10%, rgba(255,255,255,.10), transparent 28%),
+        radial-gradient(circle at 20% 10%, rgba(245,240,200,.12), transparent 28%),
         linear-gradient(135deg, var(--green), var(--green-dark));
-      color: white;
+      color: var(--logo-cream);
       text-align: center;
       padding: 90px 0;
       position: relative;
@@ -550,7 +637,7 @@
     input:focus, textarea:focus { border-color: var(--green); background: white; }
 
     footer {
-      background: var(--green-deep);
+      background: var(--green);
       color: rgba(255,255,255,.68);
       padding: 86px 0 52px;
     }
@@ -563,7 +650,7 @@
       border-bottom: 1px solid rgba(255,255,255,.12);
     }
 
-    footer .logo { color: white; font-size: 28px; margin-bottom: 28px; }
+    footer .logo { color: var(--logo-cream); font-size: 28px; margin-bottom: 28px; }
     footer h4 {
       color: rgba(255,255,255,.42);
       font-family: 'Cormorant Garamond', serif;
@@ -573,7 +660,7 @@
     }
 
     footer li { list-style: none; margin: 18px 0; font-size: 17px; }
-    footer a:hover { color: white; }
+    footer a:hover { color: var(--logo-cream); }
     .copyright { text-align: center; margin-top: 46px; color: rgba(255,255,255,.36); font-weight: 600; }
 
     @media (max-width: 980px) {
@@ -630,7 +717,8 @@
 
       .hero-content { margin-left: 0; text-align: center; }
       .hero-actions { justify-content: center; }
-      .about-grid, .contact-grid, .work-grid { grid-template-columns: 1fr; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .work-slide { min-width: calc((100% - 28px) / 2); flex-basis: calc((100% - 28px) / 2); }
       .cards-grid { grid-template-columns: repeat(2, 1fr); }
       .footer-grid { grid-template-columns: 1fr 1fr; }
       .work-card.tall { min-height: 420px; }
@@ -646,9 +734,7 @@
       .hero, .quote-section, .about-image img, .quote-section blockquote { background-position: center !important; transform: none !important; }
     }
 
-    @media (max-width: 640px) {
-      .client-logo { min-width: 190px; width: 190px; height: 122px; flex-basis: 190px; font-size: 21px; padding: 16px; }
-      .client-showcase { padding: 24px 0; border-radius: 26px; }
+    @media (max-width: 640px) {      .client-showcase { padding: 24px 0; border-radius: 26px; }
       .client-carousel::before, .client-carousel::after { width: 54px; }
       .container { width: min(100% - 32px, 1220px); }
       .navbar { height: 74px; }
@@ -659,11 +745,16 @@
       .mobile-open .nav-links { top: calc(100% + 10px); left: 14px; right: 14px; padding: 12px; border-radius: 22px; }
       .mobile-open .nav-links a { padding: 14px 16px; font-size: 15.5px; }
       section { padding: 76px 0; }
-      .hero { min-height: calc(100vh - 74px); }
+      .hero { height: calc(100vh - 74px); min-height: 620px; padding: 0; }
       h1 { font-size: 58px; }
       h2 { font-size: 46px; }
       .hero p, .about-text p, .card p, .cta p { font-size: 17px; }
       .cards-grid, .footer-grid, .form-row { grid-template-columns: 1fr; }
+      .work-slide { min-width: 100%; flex-basis: 100%; }
+      .work-card { min-height: 390px; }
+      .work-info { left: 22px; right: 22px; bottom: 22px; }
+      .work-controls { margin-top: 24px; }
+      .work-arrow { width: 40px; height: 40px; }
       .stats { gap: 26px; flex-wrap: wrap; }
       .card, .contact-panel, .contact-form { padding: 28px; }
       .about-image img { height: 380px; }
@@ -677,10 +768,10 @@
       <a class="logo" href="#home"><i data-lucide="leaf"></i><span>Blooms N Breezes</span></a>
       <nav class="nav-links" id="navLinks">
         <a href="#home" class="active">Home</a>
-        <a href="#about">About</a>
         <a href="#services">Services</a>
+        <a href="#about">About</a>
         <a href="#work">Past Work</a>
-        <!-- <a href="#testimonials">Testimonials</a> -->
+        <a href="#testimonials">Testimonials</a>
         <a href="#contact">Contact</a>
         <a href="#contact" class="btn btn-primary mobile-contact">Get in Touch</a>
       </nav>
@@ -707,7 +798,7 @@
     <section id="about" class="reveal">
       <div class="container about-grid">
         <div class="about-image">
-          <img src="Images/BNB_Logo.png" alt="Elegant landscaped garden with flowers and pathways">
+          <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1400&q=85" alt="Elegant landscaped garden with flowers and pathways">
         </div>
         <div class="about-text">
           <div class="eyebrow">About Us</div>
@@ -755,38 +846,119 @@
           <div class="eyebrow">Selected Projects</div>
           <h2>Past Work</h2>
         </div>
-        <div class="work-grid stagger reveal">
-          <article class="work-card tall">
-            <img src="Images/Rajhans_Evana.png" alt="Large landscaped lawn">
-            <div class="work-info">
-              <h3>Rajhans Evana</h3>
-              <p>A complete garden transformation with curated plants, pathways, and seasonal blooms.</p>
-              <a href="Rajhans_evana.html" class="work-btn">View More</a>
+        <div class="work-slider-wrap stagger reveal">
+          <div class="work-slider">
+            <div class="work-track" id="workTrack">
+              <article class="work-slide">
+                <div class="work-card">
+                  <img src="https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&w=1200&q=85" alt="Luxury villa garden landscaping">
+                  <div class="work-info">
+                    <h3>Luxury Villa Garden</h3>
+                    <p>Curated pathways, seasonal blooms, and a calm green layout for a private villa.</p>
+                    <a href="project-villa.html" class="work-btn">View More</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="work-slide">
+                <div class="work-card">
+                  <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1200&q=85" alt="Indoor plants styling">
+                  <div class="work-info">
+                    <h3>Indoor Plant Styling</h3>
+                    <p>Minimal indoor greens designed for calm, fresh interiors and workspaces.</p>
+                    <a href="project-indoor.html" class="work-btn">View More</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="work-slide">
+                <div class="work-card">
+                  <img src="https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&w=1200&q=85" alt="Corporate garden maintenance">
+                  <div class="work-info">
+                    <h3>Corporate AMC</h3>
+                    <p>Ongoing maintenance for office landscapes, entry gardens, and green corners.</p>
+                    <a href="project-amc.html" class="work-btn">View More</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="work-slide">
+                <div class="work-card">
+                  <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=1200&q=85" alt="Balcony garden design">
+                  <div class="work-info">
+                    <h3>Balcony Garden</h3>
+                    <p>A compact urban balcony converted into a refreshing layered green escape.</p>
+                    <a href="project-balcony.html" class="work-btn">View More</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="work-slide">
+                <div class="work-card">
+                  <img src="https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=1200&q=85" alt="Plant gifting arrangements">
+                  <div class="work-info">
+                    <h3>Plant Gifting Setup</h3>
+                    <p>Custom plant gifting arrangements created for events, homes, and celebrations.</p>
+                    <a href="project-gifting.html" class="work-btn">View More</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="work-slide">
+                <div class="work-card">
+                  <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1200&q=85" alt="Terrarium and crafty plants">
+                  <div class="work-info">
+                    <h3>Crafty Plant Corner</h3>
+                    <p>Terrariums and artistic plant pieces styled for a boutique display corner.</p>
+                    <a href="project-crafty.html" class="work-btn">View More</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="work-slide">
+                <div class="work-card">
+                  <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1200&q=85" alt="Flower bed landscaping">
+                  <div class="work-info">
+                    <h3>Seasonal Flower Bed</h3>
+                    <p>Soft color planning and fresh planting for a bright seasonal garden refresh.</p>
+                    <a href="project-flowerbed.html" class="work-btn">View More</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="work-slide">
+                <div class="work-card">
+                  <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=85" alt="Large garden landscape pathway">
+                  <div class="work-info">
+                    <h3>Pathway Landscape</h3>
+                    <p>A clean landscape pathway with structured greens and natural visual flow.</p>
+                    <a href="project-pathway.html" class="work-btn">View More</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="work-slide">
+                <div class="work-card">
+                  <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1200&q=85" alt="Premium garden transformation">
+                  <div class="work-info">
+                    <h3>Garden Transformation</h3>
+                    <p>A complete outdoor redesign with balanced planting, lawn, and sitting zones.</p>
+                    <a href="project-transformation.html" class="work-btn">View More</a>
+                  </div>
+                </div>
+              </article>
             </div>
-          </article>
-          <div class="work-stack">
-            <article class="work-card">
-              <img src="Images/Meraki_cafe.png" alt="Indoor plants in pots">
-              <div class="work-info">
-                <h3>Meraki Cafe</h3>
-                <p>Minimal indoor greens designed for calm, fresh interiors.</p>
-                <a href="Meraki_Cafe.html" class="work-btn">View More</a>
-              </div>
-            </article>
-            <article class="work-card">
-              <img src="Images/Rajhans_cornello.png" alt="Garden maintenance work">
-              <div class="work-info">
-                <h3>Rajhans Cornello</h3>
-                <p>Ongoing maintenance for office landscapes and entrance gardens.</p>
-                <a href="Rajhans_cornello.html" class="work-btn">View More</a>
-              </div>
-            </article>
+          </div>
+
+          <div class="work-controls">
+            <button class="work-arrow" id="workPrev" aria-label="Previous project"><i data-lucide="arrow-left"></i></button>
+            <div class="work-dots" id="workDots"></div>
+            <button class="work-arrow" id="workNext" aria-label="Next project"><i data-lucide="arrow-right"></i></button>
           </div>
         </div>
       </div>
     </section>
 
-    
     <section id="testimonials">
       <div class="container">
         <div class="section-head reveal">
@@ -814,9 +986,9 @@
         <div class="contact-panel">
           <div class="eyebrow">Get in Touch</div>
           <h2>Let’s Grow Something Beautiful</h2>
-          <div class="contact-item"><i data-lucide="mail"></i><span>hello@bloomsnbreezes.com</span></div>
-          <div class="contact-item"><i data-lucide="phone"></i><span>+91 98765 43210</span></div>
-          <div class="contact-item"><i data-lucide="map-pin"></i><span>Bangalore, India</span></div>
+          <div class="contact-item"><i data-lucide="mail"></i><span>bloomsnbreezes@gmail.com</span></div>
+          <div class="contact-item"><i data-lucide="phone"></i><span>+91 8128298074</span></div>
+          <div class="contact-item"><i data-lucide="map-pin"></i><span>Surat, India</span></div>
         </div>
         <form class="contact-form" id="contactForm">
           <div class="form-row">
@@ -848,7 +1020,7 @@
         </div>
         <div>
           <h4>Get in Touch</h4>
-          <ul><li>hello@bloomsnbreezes.com</li><li>+91 98765 43210</li><li>Bangalore, India</li></ul>
+          <ul><li>bloomsnbreezes@gmail.com</li><li>+91 8128298074</li><li>Surat, India</li></ul>
         </div>
       </div>
       <p class="copyright">© 2026 Blooms N Breezes. All rights reserved.</p>
@@ -932,6 +1104,73 @@
       }
     });
 
+    const workTrack = document.getElementById('workTrack');
+    const workDots = document.getElementById('workDots');
+    const workPrev = document.getElementById('workPrev');
+    const workNext = document.getElementById('workNext');
+    let workIndex = 0;
+
+    function getVisibleWorkCards() {
+      if (window.innerWidth <= 640) return 1;
+      if (window.innerWidth <= 980) return 2;
+      return 3;
+    }
+
+    function setupWorkSlider() {
+      if (!workTrack || !workDots) return;
+      const totalSlides = workTrack.children.length;
+      const visible = getVisibleWorkCards();
+      const pages = Math.max(1, totalSlides - visible + 1);
+      workIndex = Math.min(workIndex, pages - 1);
+      workDots.innerHTML = '';
+
+      for (let i = 0; i < pages; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'work-dot';
+        dot.setAttribute('aria-label', `Go to project ${i + 1}`);
+        dot.addEventListener('click', () => {
+          workIndex = i;
+          updateWorkSlider();
+        });
+        workDots.appendChild(dot);
+      }
+
+      updateWorkSlider();
+    }
+
+    function updateWorkSlider() {
+      if (!workTrack || !workDots) return;
+      const slide = workTrack.querySelector('.work-slide');
+      if (!slide) return;
+      const gap = 28;
+      const move = (slide.offsetWidth + gap) * workIndex;
+      workTrack.style.transform = `translateX(-${move}px)`;
+
+      [...workDots.children].forEach((dot, i) => {
+        dot.classList.toggle('active', i === workIndex);
+      });
+    }
+
+    if (workPrev) {
+      workPrev.addEventListener('click', () => {
+        workIndex = Math.max(0, workIndex - 1);
+        updateWorkSlider();
+      });
+    }
+
+    if (workNext) {
+      workNext.addEventListener('click', () => {
+        const totalSlides = workTrack.children.length;
+        const visible = getVisibleWorkCards();
+        const pages = Math.max(1, totalSlides - visible + 1);
+        workIndex = Math.min(pages - 1, workIndex + 1);
+        updateWorkSlider();
+      });
+    }
+
+    window.addEventListener('resize', setupWorkSlider);
+    setupWorkSlider();
+
     const sections = document.querySelectorAll('main section[id]');
     window.addEventListener('scroll', () => {
       let current = 'home';
@@ -947,7 +1186,16 @@
 
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      alert('Thank you! Blooms N Breezes will get in touch with you soon.');
+
+      const name = this.querySelector('input[type="text"]').value.trim();
+      const email = this.querySelector('input[type="email"]').value.trim();
+      const service = this.querySelectorAll('input[type="text"]')[1].value.trim();
+      const message = this.querySelector('textarea').value.trim();
+
+      const whatsappNumber = '918128298074';
+      const whatsappMessage = `Hello Blooms N Breezes,%0A%0AI would like to enquire about your services.%0A%0AName: ${encodeURIComponent(name)}%0AEmail: ${encodeURIComponent(email)}%0AService Interested In: ${encodeURIComponent(service || 'Not specified')}%0AMessage: ${encodeURIComponent(message)}%0A%0AThank you.`;
+
+      window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
       this.reset();
     });
   </script>
